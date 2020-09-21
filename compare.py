@@ -50,7 +50,7 @@ print(
 
 # %%
 # df[df.string1==df.string2]
-df_IMCG["In_GNS?"] = np.where(df_GNS['PARTTYPE'] == New_Attr['PARTTYPE'], 'True', 'False')
+df_IMCG["In_GNS?"] = np.where(df_GNS['PARTTYPE'] == df_Attr['PARTTYPE'], 'True', 'False')
 
 #%%
 # Applying upper() method on 'PARTTYPE' column in GNS table
@@ -60,22 +60,19 @@ df_GNS
 
 #%%
 # compare tables
-New_Attr['PARTTYPE'].isin(df_GNS['PARTTYPE']).value_counts()
+df_Attr['PARTTYPE'].isin(df_GNS['PARTTYPE']).value_counts()
 
 # %%
-mergedStuff = pd.merge(df_GNS, New_Attr, on=['PARTTYPE'], how='inner')
+mergedStuff = pd.merge(df_GNS, df_Attr, on=['PARTTYPE'], how='inner')
 mergedStuff
 
 # %%
 # comparing Part Type columns of truth tables
-df_GNS['PARTTYPE'].isin(New_Attr['PARTTYPE']).value_counts()
+df_GNS['PARTTYPE'].isin(df_Attr['PARTTYPE']).value_counts()
 
 # %%
-outerMerge = pd.merge(df_GNS, New_Attr, on=['PARTTYPE'], how='outer')
+outerMerge = pd.merge(df_GNS, df_Attr, on=['PARTTYPE'], how='outer')
 outerMerge
-outerMerge.to_csv('data\gns_imcg_fullJoin.csv')
+outerMerge.to_csv('data\gns_attr_fullJoin.csv')
 
-
-# %%
-# write outer merge to csv
 # %%
